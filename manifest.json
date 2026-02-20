@@ -1,0 +1,18 @@
+{
+  "name": "Escalas Neuromusculares",
+  "short_name": "Escalas",
+  "description": "Escalas clínicas para doenças neuromusculares - Dr. Igor Campana",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f3540",
+  "theme_color": "#0f3540",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

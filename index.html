@@ -4,6 +4,12 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Escalas Neuromusculares · Dr. Igor Campana</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Escalas">
+  <meta name="theme-color" content="#0f3540">
+  <link rel="apple-touch-icon" href="icon-512.png">
+  <link rel="manifest" href="manifest.json">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -420,6 +426,13 @@
   </style>
 </head>
 <body>
+
+
+<div id="installBanner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:999; background:#0f3540; color:white; padding:12px 20px; font-family:DM Sans,sans-serif; font-size:13px; align-items:center; gap:12px; box-shadow:0 2px 12px rgba(0,0,0,.3);">
+  <span style="font-size:20px;">📲</span>
+  <span style="flex:1;">Adicione à tela inicial: toque em <strong>Compartilhar</strong> → <strong>Adicionar à Tela de Início</strong></span>
+  <button onclick="document.getElementById('installBanner').style.display='none'" style="background:rgba(255,255,255,.15);border:0;color:white;border-radius:6px;padding:4px 10px;cursor:pointer;font-weight:700;">✕</button>
+</div>
 
 <button class="hamburger" id="hamburger" aria-label="Menu">
   <span></span><span></span><span></span>
@@ -1027,6 +1040,26 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 
 // ── INIT ──
 renderScale('mgadl');
+</script>
+
+<script>
+  // Show install banner on iOS Safari only (not when already in standalone mode)
+  window.addEventListener('load', function() {
+    var isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    var isStandalone = window.navigator.standalone === true;
+    var dismissed = sessionStorage.getItem('bannerDismissed');
+    if (isIos && !isStandalone && !dismissed) {
+      var b = document.getElementById('installBanner');
+      b.style.display = 'flex';
+      // push content down
+      document.querySelector('.sidebar').style.top = '52px';
+      document.getElementById('main').style.paddingTop = '0';
+    }
+    document.getElementById('installBanner').querySelector('button').addEventListener('click', function() {
+      sessionStorage.setItem('bannerDismissed', '1');
+      document.querySelector('.sidebar').style.top = '0';
+    });
+  });
 </script>
 </body>
 </html>
