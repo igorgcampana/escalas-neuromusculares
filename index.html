@@ -1,0 +1,1032 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Escalas Neuromusculares · Dr. Igor Campana</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --teal:       #1a5c6a;
+      --teal-mid:   #2d7d8e;
+      --teal-light: #e8f2f4;
+      --teal-dark:  #0f3540;
+      --accent:     #e07b3b;
+      --bg:         #f4f6f7;
+      --white:      #ffffff;
+      --gray:       #6b7280;
+      --border:     #dde3e5;
+      --text:       #1a2229;
+      --sidebar-w:  256px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--teal-dark);
+      min-height: 100vh;
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 26px 20px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .logo-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 5px;
+    }
+    .sidebar-logo h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: white;
+      line-height: 1.25;
+    }
+    .sidebar-section { padding: 18px 12px 6px; }
+    .sidebar-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+      padding: 0 8px;
+      margin-bottom: 6px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .15s;
+      margin-bottom: 2px;
+      border: 1.5px solid transparent;
+    }
+    .nav-item:hover { background: rgba(255,255,255,.07); }
+    .nav-item.active {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.15);
+    }
+    .nav-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .nav-item.active .nav-icon { background: var(--teal-mid); }
+    .nav-text { flex: 1; }
+    .nav-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+    }
+    .nav-item.active .nav-title { color: white; }
+    .nav-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.38);
+      margin-top: 1px;
+    }
+    .nav-progress {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,.4);
+    }
+    .nav-item.active .nav-progress { color: rgba(255,255,255,.7); }
+    .nav-item.done .nav-progress { color: #6ee7b7; }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .scale-header {
+      background: var(--teal);
+      color: white;
+      padding: 26px 28px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .scale-header::before {
+      content: '';
+      position: absolute;
+      top: -50px; right: -30px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+    .scale-header::after {
+      content: '';
+      position: absolute;
+      bottom: -70px; left: 40px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.03);
+    }
+    .scale-badge {
+      display: inline-block;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .scale-header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .scale-header p { font-size: 13px; opacity: .7; }
+
+    /* Progress bar */
+    .progress-wrap {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .progress-inner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 780px;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 5px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal-mid), var(--accent));
+      border-radius: 999px;
+      transition: width .4s ease;
+      width: 0%;
+    }
+    .progress-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gray);
+      white-space: nowrap;
+    }
+
+    /* Content */
+    .content { max-width: 780px; padding: 24px 28px 220px; }
+
+    /* Section label */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-mid);
+      margin: 28px 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label:first-child { margin-top: 0; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .card.answered {
+      border-color: var(--teal-mid);
+      box-shadow: 0 0 0 3px rgba(45,125,142,.07);
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .q-num {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--teal-light);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all .2s;
+    }
+    .card.answered .q-num { background: var(--teal); color: white; }
+    .card h2 { font-size: 14px; font-weight: 600; flex: 1; line-height: 1.35; }
+    .card-score-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: var(--teal-light);
+      color: var(--teal);
+      display: none;
+      white-space: nowrap;
+    }
+    .card.answered .card-score-badge { display: inline-block; }
+
+    /* Options */
+    .options { display: flex; flex-direction: column; gap: 5px; }
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 13px;
+      border-radius: 9px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .opt-label:hover { background: var(--teal-light); border-color: rgba(45,125,142,.3); }
+    .opt-label input { display: none; }
+    .opt-radio {
+      width: 17px; height: 17px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+    }
+    .opt-label:has(input:checked) { background: var(--teal-light); border-color: var(--teal-mid); }
+    .opt-label:has(input:checked) .opt-radio { border-color: var(--teal); background: var(--teal); }
+    .opt-label:has(input:checked) .opt-radio::after {
+      content: ''; width: 5px; height: 5px;
+      background: white; border-radius: 50%;
+    }
+    .opt-text { font-size: 13px; flex: 1; line-height: 1.4; }
+    .opt-score {
+      font-size: 11px; font-weight: 700;
+      color: var(--gray);
+      width: 18px; text-align: center;
+    }
+
+    /* ── FOOTER STICKY ── */
+    .sticky-footer {
+      position: fixed;
+      left: var(--sidebar-w); right: 0; bottom: 0;
+      background: white;
+      border-top: 1.5px solid var(--border);
+      padding: 14px 28px 18px;
+      box-shadow: 0 -8px 32px rgba(0,0,0,.07);
+      z-index: 20;
+    }
+    .footer-inner { max-width: 780px; }
+    .score-row {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .score-block { display: flex; align-items: baseline; gap: 4px; }
+    .score-big {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      color: var(--teal);
+      line-height: 1;
+    }
+    .score-denom { font-size: 15px; color: var(--gray); font-weight: 500; }
+    .score-label {
+      font-size: 11px; color: var(--gray); font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .btn-row { display: flex; gap: 10px; }
+    button {
+      border: 0; border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: 700; font-size: 13px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: all .15s;
+    }
+    button.primary { background: var(--teal); color: white; flex: 1; }
+    button.primary:disabled { background: var(--border); color: var(--gray); cursor: not-allowed; }
+    button.primary:not(:disabled):hover { background: var(--teal-mid); }
+    button.secondary { background: var(--bg); border: 1.5px solid var(--border); color: var(--gray); }
+    button.secondary:hover { background: var(--border); }
+
+    .output-area {
+      margin-top: 10px;
+      background: var(--teal-light);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: var(--teal);
+      font-weight: 500;
+      border: 1px solid rgba(45,125,142,.2);
+      display: none;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+    .output-area.show { display: block; }
+    .status { font-size: 11px; color: var(--gray); margin-top: 7px; }
+
+    /* Mobile */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 200;
+      background: var(--teal-dark);
+      border: 0;
+      border-radius: 8px;
+      width: 38px; height: 38px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span { width: 18px; height: 2px; background: white; border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      :root { --sidebar-w: 0px; }
+      .sidebar {
+        transform: translateX(-256px);
+        width: 256px;
+        transition: transform .3s ease;
+      }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .sticky-footer { left: 0; }
+      .hamburger { display: flex; }
+      .content { padding: 20px 16px 220px; }
+      .scale-header { padding: 20px 16px 18px; padding-left: 60px; }
+      .progress-wrap { padding: 10px 16px; }
+      .sticky-footer { padding: 12px 16px 16px; }
+    }
+
+    .sidebar-author {
+      margin-top: auto;
+      padding: 18px 20px 24px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-author-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.28);
+      margin-bottom: 7px;
+    }
+    .sidebar-author-name {
+      font-family: "DM Serif Display", serif;
+      font-size: 15px;
+      color: rgba(255,255,255,.85);
+      line-height: 1.3;
+    }
+    .sidebar-author-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.38);
+      margin-top: 3px;
+    }
+  </style>
+</head>
+<body>
+
+<button class="hamburger" id="hamburger" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-badge">Neurologia</div>
+    <h2>Escalas<br>Neuromusculares</h2>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Miastenia Gravis</div>
+    <div class="nav-item active" data-scale="mgadl" id="nav-mgadl">
+      <div class="nav-icon">⚡</div>
+      <div class="nav-text">
+        <div class="nav-title">MG-ADL</div>
+        <div class="nav-sub">0–24 pts · 8 itens</div>
+      </div>
+      <div class="nav-progress" id="nprog-mgadl">0/8</div>
+    </div>
+    <div class="nav-item" data-scale="mgc" id="nav-mgc">
+      <div class="nav-icon">🧩</div>
+      <div class="nav-text">
+        <div class="nav-title">MGC</div>
+        <div class="nav-sub">0–50 pts · 10 itens</div>
+      </div>
+      <div class="nav-progress" id="nprog-mgc">0/13</div>
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Neuropatias</div>
+    <div class="nav-item" data-scale="incat" id="nav-incat">
+      <div class="nav-icon">🦿</div>
+      <div class="nav-text">
+        <div class="nav-title">INCAT</div>
+        <div class="nav-sub">0–10 pts · 2 domínios</div>
+      </div>
+      <div class="nav-progress" id="nprog-incat">0/2</div>
+    </div>
+    <div class="nav-item" data-scale="irods" id="nav-irods">
+      <div class="nav-icon">📋</div>
+      <div class="nav-text">
+        <div class="nav-title">I-RODS</div>
+        <div class="nav-sub">0–48 pts · 24 itens</div>
+      </div>
+      <div class="nav-progress" id="nprog-irods">0/24</div>
+    </div>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">ELA</div>
+    <div class="nav-item" data-scale="alsfrs" id="nav-alsfrs">
+      <div class="nav-icon">🫁</div>
+      <div class="nav-text">
+        <div class="nav-title">ALSFRS-R</div>
+        <div class="nav-sub">0–48 pts · 12 itens</div>
+      </div>
+      <div class="nav-progress" id="nprog-alsfrs">0/12</div>
+    </div>
+  </div>
+
+  <div class="sidebar-author">
+    <div class="sidebar-author-label">Desenvolvido por</div>
+    <div class="sidebar-author-name">Dr. Igor Campana</div>
+    <div class="sidebar-author-sub">Neurologia · Doenças Neuromusculares</div>
+  </div>
+</div>
+
+<div class="main" id="main">
+  <div class="scale-header" id="scaleHeader">
+    <div class="scale-badge" id="scaleBadge">Miastenia Gravis</div>
+    <h1 id="scaleTitle">MG-ADL</h1>
+    <p id="scaleDesc">Myasthenia Gravis — Activities of Daily Living</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-inner">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">0 / 8 itens</span>
+    </div>
+  </div>
+
+  <div class="content" id="content"></div>
+</div>
+
+<div class="sticky-footer">
+  <div class="footer-inner">
+    <div class="score-label" id="scoreLabel">Pontuação total</div>
+    <div class="score-row">
+      <div class="score-block">
+        <span class="score-big" id="scoreNum">—</span>
+        <span class="score-denom" id="scoreDenom">/24</span>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="primary" id="copyBtn" disabled>Copiar para prontuário</button>
+      <button class="secondary" id="clearBtn">Limpar</button>
+    </div>
+    <div class="output-area" id="outputArea"></div>
+    <div class="status" id="statusMsg">Preencha todos os campos para liberar a cópia.</div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// DEFINIÇÃO DAS ESCALAS
+// ══════════════════════════════════════════════
+
+const SCALES = {
+
+  mgadl: {
+    id: 'mgadl',
+    title: 'MG-ADL',
+    fullName: 'Myasthenia Gravis — Activities of Daily Living',
+    badge: 'Miastenia Gravis',
+    maxScore: 24,
+    items: [
+      { key:'fala', label:'Fala', section:'Função Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Fala arrastada ou anasalada intermitente'},
+        {s:2,t:'Fala arrastada ou anasalada constante, mas que pode ser entendida'},
+        {s:3,t:'Fala difícil de entender'}
+      ]},
+      { key:'mastigacao', label:'Mastigação', section:'Função Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Cansaço com alimentos sólidos'},
+        {s:2,t:'Cansaço com alimentos macios'},
+        {s:3,t:'Sonda gástrica'}
+      ]},
+      { key:'degluticao', label:'Deglutição', section:'Função Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Episódios raros de engasgo'},
+        {s:2,t:'Engasgos frequentes que requerem mudanças na dieta'},
+        {s:3,t:'Sonda gástrica'}
+      ]},
+      { key:'respiracao', label:'Respiração', section:'Função Respiratória', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Falta de ar ao fazer esforço'},
+        {s:2,t:'Falta de ar em repouso'},
+        {s:3,t:'Dependência de ventilador'}
+      ]},
+      { key:'escovar', label:'Comprometimento da capacidade de escovar os dentes ou pentear o cabelo', section:'Membros e AVDs', options:[
+        {s:0,t:'Nenhum'},
+        {s:1,t:'Esforço extra, mas sem necessidade de períodos de descanso'},
+        {s:2,t:'Necessidade de períodos de descanso'},
+        {s:3,t:'Não consegue realizar uma dessas funções'}
+      ]},
+      { key:'cadeira', label:'Comprometimento da capacidade de levantar-se de uma cadeira', section:'Membros e AVDs', options:[
+        {s:0,t:'Nenhum'},
+        {s:1,t:'Leve, às vezes usa os braços'},
+        {s:2,t:'Moderado, sempre usa os braços'},
+        {s:3,t:'Grave, necessita de ajuda'}
+      ]},
+      { key:'diplopia', label:'Ocorrência de visão dupla', section:'Ocular', options:[
+        {s:0,t:'Nenhuma'},
+        {s:1,t:'Ocorre, mas não diariamente'},
+        {s:2,t:'Diariamente, mas não constante'},
+        {s:3,t:'Constante'}
+      ]},
+      { key:'ptose', label:'Ocorrência de pálpebra caída', section:'Ocular', options:[
+        {s:0,t:'Nenhuma'},
+        {s:1,t:'Ocorre, mas não diariamente'},
+        {s:2,t:'Diariamente, mas não constante'},
+        {s:3,t:'Constante'}
+      ]}
+    ]
+  },
+
+  mgc: {
+    id: 'mgc',
+    title: 'MGC',
+    fullName: 'Myasthenia Gravis Composite',
+    badge: 'Miastenia Gravis',
+    maxScore: 50,
+    note: 'Escala com pesos variáveis por item (pontuação não é uniforme). Exame médico = avaliação pelo médico; Histórico = relato do paciente.',
+    items: [
+      { key:'ptose_mg', label:'Ptose palpebral — olhar sustentado para cima (exame médico)', section:'Ocular', options:[
+        {s:0,t:'> 45 segundos'},
+        {s:1,t:'11–45 segundos'},
+        {s:2,t:'1–10 segundos'},
+        {s:3,t:'Imediata (< 1 segundo)'}
+      ]},
+      { key:'diplopia_mg', label:'Diplopia ao olhar lateral (direita ou esquerda) — olhar sustentado (exame médico)', section:'Ocular', options:[
+        {s:0,t:'> 45 segundos'},
+        {s:1,t:'11–45 segundos'},
+        {s:3,t:'1–10 segundos'},
+        {s:4,t:'Imediata (< 1 segundo)'}
+      ]},
+      { key:'fechamento_olho', label:'Fechamento dos olhos (exame médico)', section:'Ocular', options:[
+        {s:0,t:'Normal — resistência forte, não pode ser forçado a abrir com esforço'},
+        {s:1,t:'Fraqueza moderada — pode ser forçado a abrir facilmente'},
+        {s:2,t:'Fraqueza grave — incapaz de manter o olho fechado'}
+      ]},
+      { key:'fala_mg', label:'Fala (histórico do paciente)', section:'Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Disartria ou fala nasal intermitente'},
+        {s:4,t:'Disartria ou fala nasal constante, mas compreensível'},
+        {s:6,t:'Fala difícil de entender'}
+      ]},
+      { key:'mastigacao_mg', label:'Mastigação (histórico do paciente)', section:'Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Cansaço com alimentos sólidos'},
+        {s:4,t:'Cansaço com alimentos macios'},
+        {s:6,t:'Sonda gástrica'}
+      ]},
+      { key:'degluticao_mg', label:'Deglutição (histórico do paciente)', section:'Bulbar', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Episódio raro de engasgo ou dificuldade para engolir'},
+        {s:5,t:'Engasgos frequentes, necessitando mudança na dieta'},
+        {s:6,t:'Sonda gástrica'}
+      ]},
+      { key:'respiracao_mg', label:'Respiração — atribuída à MG (histórico do paciente)', section:'Respiratório', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Falta de ar aos esforços'},
+        {s:4,t:'Falta de ar em repouso'},
+        {s:9,t:'Dependência de ventilador'}
+      ]},
+      { key:'flexao_pescoco', label:'Flexão ou extensão do pescoço — o mais fraco (exame médico)', section:'Motor', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Fraqueza leve'},
+        {s:3,t:'Fraqueza moderada (~50% ± 15% da força esperada)'},
+        {s:4,t:'Fraqueza grave'}
+      ]},
+      { key:'ombro_abducao', label:'Abdução do ombro (exame médico)', section:'Motor', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Fraqueza leve'},
+        {s:4,t:'Fraqueza moderada (~50% ± 15% da força esperada)'},
+        {s:5,t:'Fraqueza grave'}
+      ]},
+      { key:'flexao_quadril', label:'Flexão do quadril (exame médico)', section:'Motor', options:[
+        {s:0,t:'Normal'},
+        {s:2,t:'Fraqueza leve'},
+        {s:4,t:'Fraqueza moderada (~50% ± 15% da força esperada)'},
+        {s:5,t:'Fraqueza grave'}
+      ]}
+    ]
+  },
+
+  incat: {
+    id: 'incat',
+    title: 'INCAT',
+    fullName: 'Inflammatory Neuropathy Cause and Treatment — Disability Scale',
+    badge: 'Neuropatias Inflamatórias',
+    maxScore: 10,
+    items: [
+      { key:'mmss', label:'Membros Superiores', section:'Avaliação por Segmento', options:[
+        {s:0,t:'Normal'},
+        {s:1,t:'Sintomas nos MMSS que não interferem em nenhuma das seguintes: comer, vestir-se, higiene ou escrever'},
+        {s:2,t:'Sintomas nos MMSS que interferem em apenas uma das seguintes: comer, vestir-se, higiene ou escrever'},
+        {s:3,t:'Sintomas nos MMSS que interferem em duas ou mais das seguintes: comer, vestir-se, higiene ou escrever'},
+        {s:4,t:'Incapaz de usar qualquer um dos MMSS para qualquer uma das atividades acima'},
+        {s:5,t:'Incapaz de usar qualquer um dos MMSS para qualquer finalidade'}
+      ]},
+      { key:'mmii', label:'Membros Inferiores', section:'Avaliação por Segmento', options:[
+        {s:0,t:'Deambulação normal'},
+        {s:1,t:'Deambula independentemente, mas com dificuldade (claudicação, fraqueza, tropeços leves)'},
+        {s:2,t:'Deambula com apoio unilateral (bengala, muleta ou apoio de um braço)'},
+        {s:3,t:'Deambula com apoio bilateral (bengalas, andador, apoio de dois braços)'},
+        {s:4,t:'Uso de cadeira de rodas, mas capaz de se transferir e realizar AVDs na cadeira'},
+        {s:5,t:'Confinado à cadeira de rodas sem transferência independente'}
+      ]}
+    ]
+  },
+
+  irods: {
+    id: 'irods',
+    title: 'I-RODS',
+    fullName: 'Inflammatory Rasch-built Overall Disability Scale',
+    badge: 'Neuropatias Inflamatórias',
+    maxScore: 48,
+    note: 'Avalie a sua capacidade atual de realizar as seguintes atividades diárias. Se a sua condição variar, baseie a resposta em como você geralmente realiza a tarefa. Se você precisa de ajuda ou usa equipamentos especiais, marque a opção 1.',
+    items: [
+      { key:'i01', label:'Ler um jornal ou livro', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i02', label:'Comer', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i03', label:'Escovar os dentes', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i04', label:'Lavar a parte superior do corpo', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i05', label:'Ir ao banheiro (sentar-se no vaso sanitário)', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i06', label:'Preparar um lanche / Fazer um sanduíche', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i07', label:'Vestir a parte superior do corpo', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i08', label:'Lavar a parte inferior do corpo', section:'Atividades Básicas', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i09', label:'Mover uma cadeira', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i10', label:'Virar uma chave numa fechadura', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i11', label:'Ir a uma consulta médica (clínico geral / médico de família)', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i12', label:'Tomar banho de chuveiro', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i13', label:'Lavar a louça', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i14', label:'Fazer compras', section:'Atividades Domésticas e Sociais', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i15', label:'Pegar um objeto no ar (ex.: agarrar uma bola)', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i16', label:'Abaixar-se para pegar um objeto no chão', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i17', label:'Subir um lance de escadas', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i18', label:'Viajar em transporte público', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i19', label:'Caminhar desviando de obstáculos', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i20', label:'Caminhar ao ar livre (até 1 km)', section:'Mobilidade e Destreza', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i21', label:'Carregar um objeto pesado e apoiá-lo no chão', section:'Atividades Exigentes', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i22', label:'Dançar', section:'Atividades Exigentes', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i23', label:'Ficar em pé por longos períodos (ex.: várias horas)', section:'Atividades Exigentes', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]},
+      { key:'i24', label:'Correr', section:'Atividades Exigentes', options:[{s:0,t:'Impossível de realizar'},{s:1,t:'Possível, mas com alguma dificuldade'},{s:2,t:'Possível, sem qualquer dificuldade'}]}
+    ]
+  },
+
+  alsfrs: {
+    id: 'alsfrs',
+    title: 'ALSFRS-R',
+    fullName: 'ALS Functional Rating Scale — Revised',
+    badge: 'Esclerose Lateral Amiotrófica',
+    maxScore: 48,
+    items: [
+      { key:'fala_als', label:'Fala', section:'Função Bulbar', options:[
+        {s:4,t:'Processos normais da fala'},
+        {s:3,t:'Distúrbios detectáveis da fala'},
+        {s:2,t:'Inteligível com repetição'},
+        {s:1,t:'Fala combinada com comunicação não-verbal'},
+        {s:0,t:'Perda da fala útil'}
+      ]},
+      { key:'salivacao', label:'Salivação', section:'Função Bulbar', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Leve excesso de saliva, possível gotejamento noturno'},
+        {s:2,t:'Moderado excesso de saliva, possível gotejamento mínimo'},
+        {s:1,t:'Marcado excesso de saliva com gotejamento'},
+        {s:0,t:'Marcado gotejamento, necessita constantemente de lenço'}
+      ]},
+      { key:'degluticao_als', label:'Deglutição', section:'Função Bulbar', options:[
+        {s:4,t:'Hábitos alimentares normais'},
+        {s:3,t:'Problemas iniciais de alimentação — raros engasgos'},
+        {s:2,t:'Mudanças na consistência da dieta'},
+        {s:1,t:'Necessidade de alimentação suplementar'},
+        {s:0,t:'Alimentação enteral exclusiva'}
+      ]},
+      { key:'escrita', label:'Escrita', section:'Função Motora Fina', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Lenta ou desleixada, todas as palavras legíveis'},
+        {s:2,t:'Nem todas as palavras são legíveis'},
+        {s:1,t:'Consegue segurar a caneta mas não escrever'},
+        {s:0,t:'Incapaz de segurar a caneta'}
+      ]},
+      { key:'talheres', label:'Uso de talheres / higiene', section:'Função Motora Fina', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Lento e desajeitado, mas sem ajuda'},
+        {s:2,t:'Consegue com algum esforço e ajudas adaptativas'},
+        {s:1,t:'Necessita de alguma ajuda do cuidador'},
+        {s:0,t:'Incapaz, necessita de cuidado total'}
+      ]},
+      { key:'vestir', label:'Vestir-se e higiene', section:'Função Motora Fina', options:[
+        {s:4,t:'Função normal'},
+        {s:3,t:'Cuidados independentes com esforço ou diminuição da eficiência'},
+        {s:2,t:'Assistência intermitente ou uso de métodos substitutos'},
+        {s:1,t:'Necessita de assistência do cuidador'},
+        {s:0,t:'Dependência total'}
+      ]},
+      { key:'virar_cama', label:'Virar na cama e ajustar cobertor', section:'Função Motora Grossa', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Lento e desajeitado, mas sem ajuda'},
+        {s:2,t:'Consegue virar sozinho ou ajustar os lençóis, mas com grande dificuldade'},
+        {s:1,t:'Consegue iniciar, mas não vira ou ajusta os lençóis sem ajuda'},
+        {s:0,t:'Totalmente dependente'}
+      ]},
+      { key:'caminhar', label:'Caminhar', section:'Função Motora Grossa', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Dificuldade precoce de deambulação'},
+        {s:2,t:'Deambula com auxílio'},
+        {s:1,t:'Movimento sem deambulação funcional'},
+        {s:0,t:'Sem movimento proposital de pernas'}
+      ]},
+      { key:'subir_escada', label:'Subir escadas', section:'Função Motora Grossa', options:[
+        {s:4,t:'Normal'},
+        {s:3,t:'Lento'},
+        {s:2,t:'Leve instabilidade ou fadiga'},
+        {s:1,t:'Necessita de auxílio'},
+        {s:0,t:'Incapaz'}
+      ]},
+      { key:'dispneia', label:'Dispneia', section:'Função Respiratória', options:[
+        {s:4,t:'Nenhuma'},
+        {s:3,t:'Ocorre ao caminhar'},
+        {s:2,t:'Ocorre com uma ou mais das seguintes: comer, banhar-se, vestir-se'},
+        {s:1,t:'Ocorre em repouso; dificuldade respiratória sentado ou deitado'},
+        {s:0,t:'Dificuldade significativa; considerando ventilação mecânica'}
+      ]},
+      { key:'ortopneia', label:'Ortopneia', section:'Função Respiratória', options:[
+        {s:4,t:'Nenhuma'},
+        {s:3,t:'Alguma dificuldade ao dormir à noite devido à falta de ar; não usa mais de 2 travesseiros'},
+        {s:2,t:'Necessita de mais de 2 travesseiros para dormir'},
+        {s:1,t:'Consegue dormir somente sentado'},
+        {s:0,t:'Incapaz de dormir'}
+      ]},
+      { key:'insuf_resp', label:'Insuficiência Respiratória', section:'Função Respiratória', options:[
+        {s:4,t:'Nenhuma'},
+        {s:3,t:'Uso intermitente de BiPAP'},
+        {s:2,t:'Uso de BiPAP noturno'},
+        {s:1,t:'Uso de BiPAP noturno e diurno'},
+        {s:0,t:'Ventilação mecânica invasiva por intubação ou traqueostomia'}
+      ]}
+    ]
+  }
+};
+
+// ══════════════════════════════════════════════
+// ESTADO GLOBAL
+// ══════════════════════════════════════════════
+
+let currentScale = 'mgadl';
+const states = {};
+for (const id of Object.keys(SCALES)) {
+  states[id] = {};
+  for (const item of SCALES[id].items) states[id][item.key] = null;
+}
+
+// ══════════════════════════════════════════════
+// UTILITÁRIOS
+// ══════════════════════════════════════════════
+
+function ddmmyyyy() {
+  const d = new Date();
+  return `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+}
+
+function answeredCount(scaleId) {
+  return Object.values(states[scaleId]).filter(v => Number.isInteger(v)).length;
+}
+
+function totalScore(scaleId) {
+  return Object.values(states[scaleId]).reduce((a,v) => a + (Number.isInteger(v) ? v : 0), 0);
+}
+
+// ══════════════════════════════════════════════
+// RENDER ESCALA
+// ══════════════════════════════════════════════
+
+function renderScale(scaleId) {
+  const scale = SCALES[scaleId];
+  const state = states[scaleId];
+
+  // Header
+  document.getElementById('scaleBadge').textContent = scale.badge;
+  document.getElementById('scaleTitle').textContent = scale.title;
+  document.getElementById('scaleDesc').textContent = scale.fullName;
+  document.getElementById('scoreDenom').textContent = '/' + scale.maxScore;
+
+  // Content
+  const content = document.getElementById('content');
+  let html = '';
+  if (scale.note) {
+    html += `<div style="background:#fff8f0;border:1px solid rgba(224,123,59,.25);border-radius:10px;padding:10px 14px;font-size:12px;color:#92400e;margin-bottom:16px;line-height:1.5;">ℹ️ ${scale.note}</div>`;
+  }
+
+  let lastSection = null;
+  scale.items.forEach((item, idx) => {
+    if (item.section !== lastSection) {
+      lastSection = item.section;
+      html += `<div class="section-label">${item.section}</div>`;
+    }
+    const val = state[item.key];
+    const answered = Number.isInteger(val);
+    html += `
+      <div class="card${answered ? ' answered' : ''}" id="card_${scaleId}_${item.key}">
+        <div class="card-head">
+          <div class="q-num">${idx + 1}</div>
+          <h2>${item.label}</h2>
+          <span class="card-score-badge" id="badge_${scaleId}_${item.key}">${answered ? val + ' pt' + (val !== 1 ? 's' : '') : ''}</span>
+        </div>
+        <div class="options">
+          ${item.options.map((op, j) => `
+            <label class="opt-label">
+              <input type="radio" name="q_${scaleId}_${item.key}" value="${op.s}" data-key="${item.key}"${answered && val === op.s ? ' checked' : ''}>
+              <div class="opt-radio"></div>
+              <span class="opt-text">${op.t}</span>
+              <span class="opt-score">${op.s}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  });
+
+  content.innerHTML = html;
+
+  // Listener
+  content.addEventListener('change', e => {
+    const el = e.target;
+    if (el && el.matches('input[type="radio"][data-key]')) {
+      const key = el.getAttribute('data-key');
+      states[currentScale][key] = parseInt(el.value, 10);
+      updateCard(currentScale, key);
+      updateFooter();
+      updateNavProgress();
+    }
+  });
+
+  updateFooter();
+  updateNavProgress();
+}
+
+function updateCard(scaleId, key) {
+  const val = states[scaleId][key];
+  const card = document.getElementById(`card_${scaleId}_${key}`);
+  const badge = document.getElementById(`badge_${scaleId}_${key}`);
+  if (!card) return;
+  if (Number.isInteger(val)) {
+    card.classList.add('answered');
+    badge.textContent = val + ' pt' + (val !== 1 ? 's' : '');
+  } else {
+    card.classList.remove('answered');
+  }
+}
+
+// ══════════════════════════════════════════════
+// FOOTER / PROGRESS
+// ══════════════════════════════════════════════
+
+function updateFooter() {
+  const scale = SCALES[currentScale];
+  const state = states[currentScale];
+  const n = scale.items.length;
+  const answered = answeredCount(currentScale);
+  const total = totalScore(currentScale);
+  const allDone = answered === n;
+
+  // Progress bar
+  document.getElementById('progressFill').style.width = `${(answered / n) * 100}%`;
+  document.getElementById('progressLabel').textContent = `${answered} / ${n} itens`;
+
+  // Score
+  document.getElementById('scoreNum').textContent = allDone ? total : '—';
+
+  const copyBtn = document.getElementById('copyBtn');
+  const outputArea = document.getElementById('outputArea');
+  const statusMsg = document.getElementById('statusMsg');
+
+  if (allDone) {
+    // Build prontuário text
+    const details = scale.items.map(it => `${it.label}: ${state[it.key]}`).join('; ');
+    const text = `${scale.title} (${ddmmyyyy()}): Pontuação total = ${total}/${scale.maxScore}. Detalhamento — ${details}.`;
+    outputArea.textContent = text;
+    outputArea.classList.add('show');
+    copyBtn.disabled = false;
+    copyBtn._text = text;
+    statusMsg.textContent = '✓ Pronto para copiar ao prontuário';
+  } else {
+    outputArea.classList.remove('show');
+    copyBtn.disabled = true;
+    const rem = n - answered;
+    statusMsg.textContent = `Preencha todos os campos para liberar a cópia. (${rem} restante${rem !== 1 ? 's' : ''})`;
+  }
+}
+
+function updateNavProgress() {
+  for (const id of Object.keys(SCALES)) {
+    const scale = SCALES[id];
+    const n = scale.items.length;
+    const answered = answeredCount(id);
+    const el = document.getElementById(`nprog-${id}`);
+    if (!el) continue;
+    el.textContent = `${answered}/${n}`;
+    const navItem = document.getElementById(`nav-${id}`);
+    if (answered === n) navItem.classList.add('done');
+    else navItem.classList.remove('done');
+  }
+}
+
+// ══════════════════════════════════════════════
+// NAVEGAÇÃO
+// ══════════════════════════════════════════════
+
+function switchScale(scaleId) {
+  currentScale = scaleId;
+  document.querySelectorAll('.nav-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.scale === scaleId);
+  });
+  window.scrollTo(0, 0);
+  renderScale(scaleId);
+  // close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('click', () => switchScale(el.dataset.scale));
+});
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+
+// Copy
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const text = document.getElementById('copyBtn')._text;
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  document.getElementById('statusMsg').textContent = '✅ Copiado para a área de transferência!';
+});
+
+// Clear
+document.getElementById('clearBtn').addEventListener('click', () => {
+  const scale = SCALES[currentScale];
+  for (const item of scale.items) states[currentScale][item.key] = null;
+  renderScale(currentScale);
+  updateNavProgress();
+});
+
+// ── INIT ──
+renderScale('mgadl');
+</script>
+</body>
+</html>
