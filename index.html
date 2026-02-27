@@ -556,6 +556,7 @@
       display: none;
       line-height: 1.55;
       word-break: break-word;
+      white-space: pre-wrap;
     }
 
     .output-area.show {
@@ -839,7 +840,7 @@
             ]
           },
           {
-            key: 'escovar', label: 'Comprometimento da capacidade de escovar os dentes ou pentear o cabelo', section: 'Membros e AVDs', options: [
+            key: 'escovar', label: 'Comprometimento da capacidade de escovar os dentes ou pentear o cabelo', shortLabel: 'Escovar os dentes ou pentear o cabelo', section: 'Membros e AVDs', options: [
               { s: 0, t: 'Nenhum' },
               { s: 1, t: 'Esforço extra, mas sem necessidade de períodos de descanso' },
               { s: 2, t: 'Necessidade de períodos de descanso' },
@@ -847,7 +848,7 @@
             ]
           },
           {
-            key: 'cadeira', label: 'Comprometimento da capacidade de levantar-se de uma cadeira', section: 'Membros e AVDs', options: [
+            key: 'cadeira', label: 'Comprometimento da capacidade de levantar-se de uma cadeira', shortLabel: 'Levantar-se de uma cadeira', section: 'Membros e AVDs', options: [
               { s: 0, t: 'Nenhum' },
               { s: 1, t: 'Leve, às vezes usa os braços' },
               { s: 2, t: 'Moderado, sempre usa os braços' },
@@ -855,7 +856,7 @@
             ]
           },
           {
-            key: 'diplopia', label: 'Ocorrência de visão dupla', section: 'Ocular', options: [
+            key: 'diplopia', label: 'Ocorrência de visão dupla', shortLabel: 'Diplopia', section: 'Ocular', options: [
               { s: 0, t: 'Nenhuma' },
               { s: 1, t: 'Ocorre, mas não diariamente' },
               { s: 2, t: 'Diariamente, mas não constante' },
@@ -863,7 +864,7 @@
             ]
           },
           {
-            key: 'ptose', label: 'Ocorrência de pálpebra caída', section: 'Ocular', options: [
+            key: 'ptose', label: 'Ocorrência de pálpebra caída', shortLabel: 'Ptose', section: 'Ocular', options: [
               { s: 0, t: 'Nenhuma' },
               { s: 1, t: 'Ocorre, mas não diariamente' },
               { s: 2, t: 'Diariamente, mas não constante' },
@@ -906,7 +907,7 @@
         note: 'Escala com pesos variáveis por item (pontuação não é uniforme). Exame médico = avaliação pelo médico; Histórico = relato do paciente.',
         items: [
           {
-            key: 'ptose_mg', label: 'Ptose palpebral — olhar sustentado para cima (exame médico)', section: 'Ocular', options: [
+            key: 'ptose_mg', label: 'Ptose palpebral — olhar sustentado para cima (exame médico)', shortLabel: 'Ptose palpebral', section: 'Ocular', options: [
               { s: 0, t: '> 45 segundos' },
               { s: 1, t: '11–45 segundos' },
               { s: 2, t: '1–10 segundos' },
@@ -914,7 +915,7 @@
             ]
           },
           {
-            key: 'diplopia_mg', label: 'Diplopia ao olhar lateral (direita ou esquerda) — olhar sustentado (exame médico)', section: 'Ocular', options: [
+            key: 'diplopia_mg', label: 'Diplopia ao olhar lateral (direita ou esquerda) — olhar sustentado (exame médico)', shortLabel: 'Diplopia', section: 'Ocular', options: [
               { s: 0, t: '> 45 segundos' },
               { s: 1, t: '11–45 segundos' },
               { s: 3, t: '1–10 segundos' },
@@ -922,14 +923,14 @@
             ]
           },
           {
-            key: 'fechamento_olho', label: 'Fechamento dos olhos (exame médico)', section: 'Ocular', options: [
+            key: 'fechamento_olho', label: 'Fechamento dos olhos (exame médico)', shortLabel: 'Fechamento dos olhos', section: 'Ocular', options: [
               { s: 0, t: 'Normal — resistência forte, não pode ser forçado a abrir com esforço' },
               { s: 1, t: 'Fraqueza moderada — pode ser forçado a abrir facilmente' },
               { s: 2, t: 'Fraqueza grave — incapaz de manter o olho fechado' }
             ]
           },
           {
-            key: 'fala_mg', label: 'Fala (histórico do paciente)', section: 'Bulbar', options: [
+            key: 'fala_mg', label: 'Fala (histórico do paciente)', shortLabel: 'Fala', section: 'Bulbar', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Disartria ou fala nasal intermitente' },
               { s: 4, t: 'Disartria ou fala nasal constante, mas compreensível' },
@@ -937,7 +938,7 @@
             ]
           },
           {
-            key: 'mastigacao_mg', label: 'Mastigação (histórico do paciente)', section: 'Bulbar', options: [
+            key: 'mastigacao_mg', label: 'Mastigação (histórico do paciente)', shortLabel: 'Mastigação', section: 'Bulbar', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Cansaço com alimentos sólidos' },
               { s: 4, t: 'Cansaço com alimentos macios' },
@@ -945,7 +946,7 @@
             ]
           },
           {
-            key: 'degluticao_mg', label: 'Deglutição (histórico do paciente)', section: 'Bulbar', options: [
+            key: 'degluticao_mg', label: 'Deglutição (histórico do paciente)', shortLabel: 'Deglutição', section: 'Bulbar', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Episódio raro de engasgo ou dificuldade para engolir' },
               { s: 5, t: 'Engasgos frequentes, necessitando mudança na dieta' },
@@ -953,7 +954,7 @@
             ]
           },
           {
-            key: 'respiracao_mg', label: 'Respiração — atribuída à MG (histórico do paciente)', section: 'Respiratório', options: [
+            key: 'respiracao_mg', label: 'Respiração — atribuída à MG (histórico do paciente)', shortLabel: 'Respiração', section: 'Respiratório', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Falta de ar aos esforços' },
               { s: 4, t: 'Falta de ar em repouso' },
@@ -961,7 +962,7 @@
             ]
           },
           {
-            key: 'flexao_pescoco', label: 'Flexão ou extensão do pescoço — o mais fraco (exame médico)', section: 'Motor', options: [
+            key: 'flexao_pescoco', label: 'Flexão ou extensão do pescoço — o mais fraco (exame médico)', shortLabel: 'Pescoço (flexão/extensão)', section: 'Motor', options: [
               { s: 0, t: 'Normal' },
               { s: 1, t: 'Fraqueza leve' },
               { s: 3, t: 'Fraqueza moderada (~50% ± 15% da força esperada)' },
@@ -969,7 +970,7 @@
             ]
           },
           {
-            key: 'ombro_abducao', label: 'Abdução do ombro (exame médico)', section: 'Motor', options: [
+            key: 'ombro_abducao', label: 'Abdução do ombro (exame médico)', shortLabel: 'Abdução do ombro', section: 'Motor', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Fraqueza leve' },
               { s: 4, t: 'Fraqueza moderada (~50% ± 15% da força esperada)' },
@@ -977,7 +978,7 @@
             ]
           },
           {
-            key: 'flexao_quadril', label: 'Flexão do quadril (exame médico)', section: 'Motor', options: [
+            key: 'flexao_quadril', label: 'Flexão do quadril (exame médico)', shortLabel: 'Flexão do quadril', section: 'Motor', options: [
               { s: 0, t: 'Normal' },
               { s: 2, t: 'Fraqueza leve' },
               { s: 4, t: 'Fraqueza moderada (~50% ± 15% da força esperada)' },
@@ -1342,8 +1343,8 @@
           const classDesc = classOpt ? classOpt.desc : '';
           text = `MGFA (${ddmmyyyy()}): Classificação Classe ${classVal} — ${classDesc}`;
         } else {
-          const details = scale.items.map(it => `${it.label}: ${state[it.key]}`).join('; ');
-          text = `${scale.title} (${ddmmyyyy()}): Pontuação total = ${total}/${scale.maxScore}. Detalhamento — ${details}.`;
+          const details = scale.items.map(it => `${it.shortLabel || it.label}: ${state[it.key]}`).join('; ');
+          text = `${scale.title} (${ddmmyyyy()}): ${total}/${scale.maxScore}.\n${details}.`;
         }
         outputArea.textContent = text;
         outputArea.classList.add('show');
